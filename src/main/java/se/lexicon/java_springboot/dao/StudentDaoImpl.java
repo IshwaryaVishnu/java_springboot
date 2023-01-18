@@ -2,7 +2,7 @@ package se.lexicon.java_springboot.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import se.lexicon.java_springboot.model.Student;
+import se.lexicon.java_springboot.entity.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

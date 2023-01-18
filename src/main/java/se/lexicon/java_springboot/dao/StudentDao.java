@@ -1,6 +1,6 @@
 package se.lexicon.java_springboot.dao;
 
-import se.lexicon.java_springboot.model.Student;
+import se.lexicon.java_springboot.entity.Student;
 
 import java.util.Collection;
 import java.util.Optional;

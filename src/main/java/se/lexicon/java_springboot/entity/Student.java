@@ -1,4 +1,4 @@
-package se.lexicon.java_springboot.model;
+package se.lexicon.java_springboot.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
