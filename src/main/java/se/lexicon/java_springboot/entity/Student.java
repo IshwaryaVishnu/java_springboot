@@ -30,7 +30,7 @@ public class Student {
     private boolean status;
     private LocalDateTime registrationDate;
 
-    // ctors
+    // constructors
 
     public Student() {
         this.status = true;
