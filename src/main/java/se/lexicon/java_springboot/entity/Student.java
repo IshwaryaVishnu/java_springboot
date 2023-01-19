@@ -30,9 +30,20 @@ public class Student {
     private boolean status;
     private LocalDateTime registrationDate;
 
+
+
+
     public Student() {
         this.status = true;
         this.registrationDate = LocalDateTime.now();
+    }
+
+    public Student(String firstName, String lastName, String email, LocalDate birthDate) {
+        this();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthDate = birthDate;
     }
 
     public String getId() {
