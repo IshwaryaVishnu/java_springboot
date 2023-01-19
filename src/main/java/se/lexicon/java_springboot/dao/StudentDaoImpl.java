@@ -10,30 +10,37 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Repository
-        public class StudentDaoImpl implements StudentDao{
+public class StudentDaoImpl implements StudentDao {
+
     @PersistenceContext
-       EntityManager entityManager;
-@Transactional
+    EntityManager entityManager;
+
+
     @Override
+    @Transactional
     public Student persist(Student student) {
         entityManager.persist(student);
-        return null;
+        return student;
     }
-@Transactional(readOnly = true)
+
     @Override
+    @Transactional(readOnly = true)
     public Optional<Student> findById(String id) {
-        return Optional.ofNullable(entityManager.find(Student.class,id));
+        return Optional.ofNullable(entityManager.find(Student.class, id));
     }
-@Transactional(readOnly = true)
+
     @Override
-    public Optional<Student> findByEmail(String email) {
+    @Transactional(readOnly = true)
+    public Optional<Student> findByEmail(String email) { //Mehrdad@lexicon.se
         return entityManager.createQuery("select s from Student s where UPPER(s.email) = UPPER(:e)", Student.class)
                 .setParameter("e", email)
                 .getResultStream()
                 .findFirst();
+
     }
-@Transactional(readOnly = true)
+
     @Override
+    @Transactional(readOnly = true)
     public Collection<Student> findByNameContains(String name) {
         return entityManager.createQuery("select s from Student s " +
                         "where " +
@@ -44,24 +51,27 @@ import java.util.Optional;
                 .getResultList();
 
     }
-@Transactional(readOnly = true)
+
     @Override
+    @Transactional(readOnly = true)
     public Collection<Student> findAll() {
         return entityManager.
                 createQuery("select s from Student s", Student.class)
                 .getResultList();
     }
-@Transactional
+
     @Override
+    @Transactional
     public Student update(Student student) {
-    return entityManager.merge(student);
+        return entityManager.merge(student);
     }
-@Transactional
+
     @Override
+    @Transactional
     public void remove(String id) {
         Student student = entityManager.find(Student.class, id);
         if (student != null) entityManager.remove(student);
         //else // throw exception...
-    }
 
+    }
 }

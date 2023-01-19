@@ -6,32 +6,31 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
-
 @Entity
-//@Table(name = "student_table")
+//@Table(name = "TBL_STUDENTS")
 public class Student {
-    /*@Id //Primary Key
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    //@Column(name = "STD_ID",updatable = false)
+
+    /*@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private int studentId;*/
+    private int id;*/
+
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private  String id;
-    @Column(nullable = false,length= 100)
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
+    @Column(nullable = false, length = 100)
     private String firstName;
-    @Column(nullable = false,length = 100)
-    private  String lastName;
-    @Column(nullable = false,length = 120,unique = true)
-    private  String email;
+    @Column(nullable = false, length = 100)
+    private String lastName;
+    @Column(nullable = false, length = 120, unique = true)
+    private String email;
     @Column(nullable = false)
     private LocalDate birthDate;
     private boolean status;
     private LocalDateTime registrationDate;
 
-
-
+    // ctors
 
     public Student() {
         this.status = true;
@@ -45,6 +44,8 @@ public class Student {
         this.email = email;
         this.birthDate = birthDate;
     }
+
+    // setters & getters
 
     public String getId() {
         return id;
@@ -98,6 +99,12 @@ public class Student {
         return registrationDate;
     }
 
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    // equal & hashCode
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,6 +118,8 @@ public class Student {
         return Objects.hash(id, firstName, lastName, email, birthDate, status, registrationDate);
     }
 
+    // toString
+
     @Override
     public String toString() {
         return "Student{" +
@@ -123,4 +132,6 @@ public class Student {
                 ", registrationDate=" + registrationDate +
                 '}';
     }
+
 }
+
