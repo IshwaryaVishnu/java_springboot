@@ -29,6 +29,10 @@ public class Student {
     private LocalDate birthDate;
     private boolean status;
     private LocalDateTime registrationDate;
+@OneToOne
+@JoinColumn(name ="address_id")
+    private  Address address;
+
 
     // constructors
 
@@ -37,14 +41,23 @@ public class Student {
         this.registrationDate = LocalDateTime.now();
     }
 
-    public Student(String firstName, String lastName, String email, LocalDate birthDate) {
+    public Student(String firstName, String lastName, String email, LocalDate birthDate){
         this();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.birthDate = birthDate;
-    }
 
+    }
+    public Student(String firstName, String lastName, String email, LocalDate birthDate,Address address){
+        this();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.address = address;
+
+    }
     // setters & getters
 
     public String getId() {
@@ -101,6 +114,14 @@ public class Student {
 
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     // equal & hashCode
