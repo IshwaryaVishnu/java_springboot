@@ -5,6 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 //@Table(name = "TBL_STUDENTS")
@@ -33,6 +35,9 @@ public class Student {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
 @JoinColumn(name ="address_id")
     private  Address address;
+
+    @OneToMany(mappedBy = "borrower")
+    private List<Book> borrowedBooks;
 
 
     // constructors
@@ -127,6 +132,31 @@ public class Student {
 
             this.address = address;
 
+    }
+
+    public List<Book> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void setBorrowedBooks(List<Book> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
+    }
+
+    public void borrowBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book data was null");
+        if (borrowedBooks == null) borrowedBooks = new ArrayList<>();
+
+        borrowedBooks.add(book);
+        book.setBorrower(this);
+
+    }
+
+    public void returnBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book data was null");
+        if (borrowedBooks != null) {
+            book.setBorrower(null);
+            borrowedBooks.remove(book);
+        }
     }
     // equal & hashCode
 
