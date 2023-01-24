@@ -19,20 +19,50 @@ public class AppCommandLineRunner implements CommandLineRunner {
 
     @Autowired
     AddressDao addressDao;
-@Transactional
+
+    @Transactional
     @Override
     public void run(String... args) throws Exception {
-    exe1();
+        exe3();
     }
 
-    public  void exe1() {
-        Address addressData = new Address("almhult","Hjorthvegan","34336");
+
+    public void exe1() {
+        Address addressData = new Address("almhult", "Hjorthvegan", "34336");
         Address createdAddress = addressDao.persist(addressData);
 
 
-        Student studentData = new Student("ishu","Sankar","ishu27.v@gmail.com",LocalDate.parse("1991-09-27"));
+        Student studentData = new Student("ishu", "Sankar", "ishu27.v@gmail.com", LocalDate.parse("1991-09-27"));
         studentData.setAddress(createdAddress);
         Student createdStudent = studentDao.persist(studentData);
+    }
+
+    public void exe2() {
+        Student studentData = new Student(
+                "ishu",
+                "Sankar",
+                "ishu27.v@gmail.com",
+                LocalDate.parse("1991-09-27"),
+                new Address("almhult", "Hjorthvegan", "34336"));
+        Student createdStudent = studentDao.persist(studentData);
+        studentDao.remove(createdStudent.getId());
+
+    }
+
+    public void exe3() {
+        Student studentData = new Student(
+                "ishu",
+                "Sankar",
+                "ishu27.v@gmail.com",
+                LocalDate.parse("1991-09-27"),
+                new Address("almhult", "Hjorthvegan", "34336"));
+        Student createdStudent = studentDao.persist(studentData);
+
+        addressDao.findAll().forEach(address -> {
+            System.out.println(address);
+            System.out.println(address.getStudent());
+        });
+
     }
 }
 

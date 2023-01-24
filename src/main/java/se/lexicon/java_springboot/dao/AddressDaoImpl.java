@@ -23,14 +23,14 @@ public class AddressDaoImpl implements AddressDao{
     @Transactional(readOnly = true)
     public Optional<Address> findById(Integer id) {
       // return Optional.ofNullable( entityManager.find(Address.class,id));
-     return entityManager.createQuery("select a from Address a where a.id = ?1")
+      /* return entityManager.createQuery("select a from Address a where a.id = ?1")
+                .setParameter(1,id)
+                .getResultStream()
+                .findFirst();*/
+          return entityManager.createNamedQuery("Address.findById", Address.class)
                 .setParameter(1,id)
                 .getResultStream()
                 .findFirst();
-         /* return entityManager.createNamedQuery("Address.findById", Address.class)
-                .setParameter(1,id)
-                .getResultStream()
-                .findFirst(); */
 
     }
 

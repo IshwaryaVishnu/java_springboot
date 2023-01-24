@@ -3,6 +3,7 @@ package se.lexicon.java_springboot.entity;
 import javax.persistence.*;
 import java.util.Objects;
 @Entity
+@NamedQuery(name = "Address.findById", query = "select a from Address a where a.id = ?1")
 public class Address {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +14,8 @@ public class Address {
     private String street;
     @Column(nullable = false,length = 6)
     private String zipCode;
+    @OneToOne(mappedBy = "address") //Bi directional
+    private Student student;
 
     public Address() {
     }
@@ -60,6 +63,14 @@ public class Address {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     @Override

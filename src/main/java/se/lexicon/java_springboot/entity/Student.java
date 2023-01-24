@@ -29,7 +29,8 @@ public class Student {
     private LocalDate birthDate;
     private boolean status;
     private LocalDateTime registrationDate;
-@OneToOne
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
 @JoinColumn(name ="address_id")
     private  Address address;
 
@@ -55,7 +56,7 @@ public class Student {
         this.lastName = lastName;
         this.email = email;
         this.birthDate = birthDate;
-        this.address = address;
+        setAddress(address);
 
     }
     // setters & getters
@@ -121,9 +122,12 @@ public class Student {
     }
 
     public void setAddress(Address address) {
-        this.address = address;
-    }
+            //bi directional
+            if (address != null) address.setStudent(this);
 
+            this.address = address;
+
+    }
     // equal & hashCode
 
     @Override
